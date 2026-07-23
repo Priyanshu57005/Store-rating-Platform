@@ -23,11 +23,9 @@ export const Modal: React.FC<ModalProps> = ({
       if (e.key === 'Escape') onClose();
     };
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
     }
     return () => {
-      document.body.style.overflow = 'unset';
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, onClose]);
@@ -42,24 +40,28 @@ export const Modal: React.FC<ModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fade-in overflow-y-auto">
+    <div
+      className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-md p-4 sm:p-6 flex items-start sm:items-center justify-center animate-fade-in"
+      onClick={onClose}
+    >
       <div
-        className={`w-full ${maxWidthClasses[maxWidth]} max-h-[85vh] flex flex-col glass-card border border-zinc-700/80 shadow-2xl p-6 relative overflow-hidden my-auto`}
+        className={`w-full ${maxWidthClasses[maxWidth]} my-auto glass-card border border-zinc-700/80 shadow-2xl p-6 relative`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-start justify-between pb-4 mb-4 border-b border-zinc-800 shrink-0">
+        <div className="flex items-start justify-between pb-4 mb-4 border-b border-zinc-800">
           <div>
             <h3 className="text-lg font-semibold text-white tracking-tight">{title}</h3>
             {subtitle && <p className="text-xs text-zinc-400 mt-0.5">{subtitle}</p>}
           </div>
           <button
+            type="button"
             onClick={onClose}
             className="p-1.5 text-zinc-400 hover:text-white hover:bg-zinc-800 rounded-lg transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
-        <div className="overflow-y-auto pr-1.5 flex-1 min-h-0">{children}</div>
+        <div>{children}</div>
       </div>
     </div>
   );
