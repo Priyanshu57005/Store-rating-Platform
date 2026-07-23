@@ -39,6 +39,18 @@ export const register = async (req: Request<{}, {}, RegisterInput>, res: Respons
       },
     });
 
+    // If registering as STORE_OWNER, auto-create their Store entry so users can review it
+    if (user.role === 'STORE_OWNER') {
+      await prisma.store.create({
+        data: {
+          name: user.name,
+          email: user.email,
+          address: user.address,
+          ownerId: user.id,
+        },
+      });
+    }
+
     const token = jwt.sign(
       { userId: user.id, email: user.email, role: user.role },
       process.env.JWT_SECRET || 'super_secret_jwt_key',

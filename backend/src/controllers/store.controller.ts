@@ -46,6 +46,29 @@ export const createStore = async (req: Request<{}, {}, CreateStoreInput>, res: R
 
 export const getStores = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    // Auto-sync: Ensure all registered STORE_OWNER users have a Store entry created
+    const unlinkedOwners = await prisma.user.findMany({
+      where: {
+        role: 'STORE_OWNER',
+        stores: { none: {} },
+      },
+    });
+
+    if (unlinkedOwners.length > 0) {
+      await Promise.all(
+        unlinkedOwners.map((owner) =>
+          prisma.store.create({
+            data: {
+              name: owner.name,
+              email: owner.email,
+              address: owner.address,
+              ownerId: owner.id,
+            },
+          })
+        )
+      );
+    }
+
     const {
       search,
       name,

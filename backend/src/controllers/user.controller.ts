@@ -39,6 +39,18 @@ export const createUser = async (req: Request<{}, {}, CreateUserInput>, res: Res
       },
     });
 
+    // If created role is STORE_OWNER, auto-create their Store entry
+    if (newUser.role === 'STORE_OWNER') {
+      await prisma.store.create({
+        data: {
+          name: newUser.name,
+          email: newUser.email,
+          address: newUser.address,
+          ownerId: newUser.id,
+        },
+      });
+    }
+
     return res.status(201).json({
       success: true,
       message: `User created successfully with role ${role}.`,
