@@ -1,0 +1,48 @@
+// Database Schema Diagram for Store Rating Platform
+// Can be visualized at https://dbdiagram.io
+
+Enum Role {
+  ADMIN
+  USER
+  STORE_OWNER
+}
+
+Table User {
+  id varchar [pk, note: 'UUID v4']
+  name varchar(60) [not null]
+  email varchar(255) [unique, not null]
+  password varchar(255) [not null]
+  address varchar(400) [not null]
+  role Role [not null, default: 'USER']
+  createdAt datetime [not null]
+  updatedAt datetime [not null]
+}
+
+Table Store {
+  id varchar [pk, note: 'UUID v4']
+  name varchar(100) [not null]
+  email varchar(255) [not null]
+  address varchar(400) [not null]
+  ownerId varchar [note: 'FK to User.id']
+  createdAt datetime [not null]
+  updatedAt datetime [not null]
+}
+
+Table Rating {
+  id varchar [pk, note: 'UUID v4']
+  value int [not null]
+  comment varchar(500)
+  userId varchar [not null, note: 'FK to User.id']
+  storeId varchar [not null, note: 'FK to Store.id']
+  createdAt datetime [not null]
+  updatedAt datetime [not null]
+
+  Indexes {
+    (userId, storeId) [unique]
+  }
+}
+
+// Relationships
+Ref: User.id < Store.ownerId [delete: set null]
+Ref: User.id < Rating.userId [delete: cascade]
+Ref: Store.id < Rating.storeId [delete: cascade]

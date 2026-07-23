@@ -44,6 +44,99 @@ The platform allows users to rate stores, store owners to view ratings for their
 
 ---
 
+## Database Schema & ER Diagram
+
+```mermaid
+erDiagram
+    User ||--o{ Store : "owns (ownerId)"
+    User ||--o{ Rating : "submits (userId)"
+    Store ||--o{ Rating : "receives (storeId)"
+
+    User {
+        varchar id PK
+        varchar name
+        varchar email UK
+        varchar password
+        varchar address
+        Role role
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    Store {
+        varchar id PK
+        varchar name
+        varchar email
+        varchar address
+        varchar ownerId FK
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    Rating {
+        varchar id PK
+        int value
+        varchar comment
+        varchar userId FK
+        varchar storeId FK
+        datetime createdAt
+        datetime updatedAt
+    }
+```
+
+### DBML Syntax (for [dbdiagram.io](https://dbdiagram.io))
+
+```dbml
+Enum Role {
+  ADMIN
+  USER
+  STORE_OWNER
+}
+
+Table User {
+  id varchar [pk]
+  name varchar(60) [not null]
+  email varchar(255) [unique, not null]
+  password varchar(255) [not null]
+  address varchar(400) [not null]
+  role Role [not null, default: 'USER']
+  createdAt datetime [not null]
+  updatedAt datetime [not null]
+}
+
+Table Store {
+  id varchar [pk]
+  name varchar(100) [not null]
+  email varchar(255) [not null]
+  address varchar(400) [not null]
+  ownerId varchar [note: 'FK to User.id']
+  createdAt datetime [not null]
+  updatedAt datetime [not null]
+}
+
+Table Rating {
+  id varchar [pk]
+  value int [not null]
+  comment varchar(500)
+  userId varchar [not null, note: 'FK to User.id']
+  storeId varchar [not null, note: 'FK to Store.id']
+  createdAt datetime [not null]
+  updatedAt datetime [not null]
+
+  Indexes {
+    (userId, storeId) [unique]
+  }
+}
+
+// Relationships
+Ref: User.id < Store.ownerId [delete: set null]
+Ref: User.id < Rating.userId [delete: cascade]
+Ref: Store.id < Rating.storeId [delete: cascade]
+```
+
+---
+
+
 ## Features
 
 ### Admin
