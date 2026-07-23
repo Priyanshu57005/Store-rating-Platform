@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('🌱 Starting database seeding...');
+  console.log('🌱 Starting database seeding with Indian store names and locations...');
 
   // Clean existing data
   await prisma.rating.deleteMany();
@@ -18,10 +18,10 @@ async function main() {
   // 1. Create System Administrator
   const admin = await prisma.user.create({
     data: {
-      name: 'System Administrator Master Account',
+      name: 'System Administrator Master Coordinator',
       email: 'admin@storerating.com',
       password: adminPasswordHash,
-      address: '742 Evergreen Terrace, Sector 14, Silicon Valley Administrative HQ',
+      address: 'Plot No. 42, Cyber City, Sector 24, DLF Phase 3, Gurugram, Haryana 122002',
       role: Role.ADMIN,
     },
   });
@@ -29,20 +29,20 @@ async function main() {
   // 2. Create Store Owners
   const owner1 = await prisma.user.create({
     data: {
-      name: 'Marcus Aurelius Store Owner Account',
-      email: 'owner.marcus@techemporium.com',
+      name: 'Rajesh Kumar Sharma Store Management',
+      email: 'owner.rajesh@sharmatronics.in',
       password: ownerPasswordHash,
-      address: '100 Innovation Parkway, Suite 400, Tech City, California 90210',
+      address: 'Shop No. 12, Connaught Place Block C, Outer Circle, New Delhi 110001',
       role: Role.STORE_OWNER,
     },
   });
 
   const owner2 = await prisma.user.create({
     data: {
-      name: 'Elena Rostova Store Owner Executive',
-      email: 'owner.elena@artisanbakery.com',
+      name: 'Priya Ramesh Kulkarni Executive Manager',
+      email: 'owner.priya@kulkarnisweets.in',
       password: ownerPasswordHash,
-      address: '45 Baker Street, Old Quarter District, New York 10001',
+      address: 'FC Road, Opposite Ferguson College Campus, Shivajinagar, Pune, Maharashtra 411004',
       role: Role.STORE_OWNER,
     },
   });
@@ -50,58 +50,58 @@ async function main() {
   // 3. Create Normal Users
   const user1 = await prisma.user.create({
     data: {
-      name: 'Christopher Alexander Davis Junior',
-      email: 'christopher.davis@example.com',
+      name: 'Aarav Vikramaditya Singh Thakur',
+      email: 'aarav.singh@example.in',
       password: userPasswordHash,
-      address: '123 Maple Street, Apartment 4B, Springfield, IL 62701',
+      address: 'Flat 402, Royal Palms Apartments, MG Road, Indiranagar, Bengaluru, Karnataka 560038',
       role: Role.USER,
     },
   });
 
   const user2 = await prisma.user.create({
     data: {
-      name: 'Sophia Catherine Miller Williams',
-      email: 'sophia.miller@example.com',
+      name: 'Ananya Srinivasan Venkatesh Iyer',
+      email: 'ananya.venkatesh@example.in',
       password: userPasswordHash,
-      address: '789 Oak Avenue, Suite 12, Seattle, WA 98101',
+      address: 'Door No. 18/4, T. Nagar Main Street, Near Panagal Park, Chennai, Tamil Nadu 600017',
       role: Role.USER,
     },
   });
 
   const user3 = await prisma.user.create({
     data: {
-      name: 'Jonathan Edward Harrison Smith',
-      email: 'jonathan.harrison@example.com',
+      name: 'Rohan Deshmukh Patil Maharashtra',
+      email: 'rohan.deshmukh@example.in',
       password: userPasswordHash,
-      address: '555 Pine Boulevard, Unit 302, Austin, TX 78701',
+      address: '101 Heritage Towers, Bandra West, Hill Road, Mumbai, Maharashtra 400050',
       role: Role.USER,
     },
   });
 
-  // 4. Create Stores
+  // 4. Create Stores (Indian Store Names & Locations)
   const store1 = await prisma.store.create({
     data: {
-      name: 'Nexus Electronics & Gadgets Hub',
-      email: 'contact@nexuselectronics.com',
-      address: '100 Innovation Parkway, Suite 400, Tech City, California 90210',
+      name: 'Sharma Electronics & Mobile Superstore',
+      email: 'support@sharmatronics.in',
+      address: 'Shop No. 12, Connaught Place Block C, Outer Circle, New Delhi 110001',
       ownerId: owner1.id,
     },
   });
 
   const store2 = await prisma.store.create({
     data: {
-      name: 'Artisan Gourmet & Fresh Bakery',
-      email: 'info@artisanbakery.com',
-      address: '45 Baker Street, Old Quarter District, New York 10001',
+      name: 'Kulkarni Mithai Mandir & Fresh Bakery',
+      email: 'contact@kulkarnisweets.in',
+      address: 'FC Road, Opposite Ferguson College Campus, Shivajinagar, Pune, Maharashtra 411004',
       ownerId: owner2.id,
     },
   });
 
   const store3 = await prisma.store.create({
     data: {
-      name: 'Urban Outfitters Fashion Store',
-      email: 'support@urbanfashion.com',
-      address: '888 Fashion Boulevard, Shopping District, Chicago 60601',
+      name: 'Jaipur Handicrafts & Ethnic Textiles',
+      email: 'info@jaipurtextiles.in',
+      address: 'Johari Bazaar Market, Pink City, Jaipur, Rajasthan 302003',
       ownerId: null,
     },
   });
@@ -113,37 +113,37 @@ async function main() {
         userId: user1.id,
         storeId: store1.id,
         value: 5,
-        comment: 'Exceptional customer service and latest tech inventory!',
+        comment: 'Best place for authentic gadgets in Delhi. Great prices and prompt service!',
       },
       {
         userId: user2.id,
         storeId: store1.id,
         value: 4,
-        comment: 'Great selection of items, fast checkout process.',
+        comment: 'Quick mobile repair service and polite store staff.',
       },
       {
         userId: user3.id,
         storeId: store1.id,
         value: 5,
-        comment: 'Outstanding experience. Highly recommended.',
+        comment: 'Prompt warranty support and 100% genuine products.',
       },
       {
         userId: user1.id,
         storeId: store2.id,
         value: 4,
-        comment: 'Delicious fresh pastries every morning!',
+        comment: 'Delicious fresh sweets, highly recommend their Kaju Katli!',
       },
       {
         userId: user2.id,
         storeId: store2.id,
         value: 5,
-        comment: 'Best sourdough bread in the city!',
+        comment: 'Pure ghee sweets and extremely clean packaging.',
       },
       {
         userId: user3.id,
         storeId: store3.id,
         value: 3,
-        comment: 'Good clothing options but customer service was average.',
+        comment: 'Nice traditional saree collection, but prices are slightly high.',
       },
     ],
   });
@@ -152,9 +152,9 @@ async function main() {
   console.log('----------------------------------------------------');
   console.log('Credentials Summary:');
   console.log('Admin User:        admin@storerating.com / Admin@1234Password');
-  console.log('Store Owner 1:     owner.marcus@techemporium.com / Owner@1234Password');
-  console.log('Store Owner 2:     owner.elena@artisanbakery.com / Owner@1234Password');
-  console.log('Normal User 1:     christopher.davis@example.com / User@1234Password');
+  console.log('Store Owner 1:     owner.rajesh@sharmatronics.in / Owner@1234Password');
+  console.log('Store Owner 2:     owner.priya@kulkarnisweets.in / Owner@1234Password');
+  console.log('Normal User 1:     aarav.singh@example.in / User@1234Password');
   console.log('----------------------------------------------------');
 }
 

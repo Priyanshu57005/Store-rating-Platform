@@ -92,7 +92,7 @@ export const AddUserModal: React.FC<AddUserModalProps> = ({ isOpen, onClose, onS
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="input-field"
-            placeholder="e.g. Christopher Alexander Davis Junior"
+            placeholder="e.g. Aarav Vikramaditya Singh Thakur"
             required
             minLength={20}
             maxLength={60}

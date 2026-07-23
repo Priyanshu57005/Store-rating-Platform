@@ -80,7 +80,7 @@ export const AddStoreModal: React.FC<AddStoreModalProps> = ({ isOpen, onClose, o
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="input-field"
-            placeholder="e.g. Nexus Electronics & Gadgets Hub"
+            placeholder="e.g. Sharma Electronics & Mobile Superstore"
             required
             minLength={3}
             maxLength={100}

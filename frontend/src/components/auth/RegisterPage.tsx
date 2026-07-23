@@ -109,7 +109,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onSwitchToLogin }) =
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="input-field !pl-10"
-                  placeholder="e.g. Christopher Alexander Davis Junior"
+                  placeholder="e.g. Aarav Vikramaditya Singh Thakur"
                   required
                   minLength={20}
                   maxLength={60}

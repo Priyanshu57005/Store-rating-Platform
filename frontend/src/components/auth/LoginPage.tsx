@@ -137,7 +137,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
             </button>
 
             <button
-              onClick={() => handleQuickLogin('owner.marcus@techemporium.com', 'Owner@1234Password')}
+              onClick={() => handleQuickLogin('owner.rajesh@sharmatronics.in', 'Owner@1234Password')}
               className="p-2 rounded-lg bg-zinc-900 hover:bg-emerald-500/10 border border-zinc-800 hover:border-emerald-500/30 text-left transition-all group"
             >
               <span className="text-[11px] font-bold text-emerald-400 flex items-center gap-1">
@@ -147,7 +147,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
             </button>
 
             <button
-              onClick={() => handleQuickLogin('christopher.davis@example.com', 'User@1234Password')}
+              onClick={() => handleQuickLogin('aarav.singh@example.in', 'User@1234Password')}
               className="p-2 rounded-lg bg-zinc-900 hover:bg-indigo-500/10 border border-zinc-800 hover:border-indigo-500/30 text-left transition-all group"
             >
               <span className="text-[11px] font-bold text-indigo-400 flex items-center gap-1">
