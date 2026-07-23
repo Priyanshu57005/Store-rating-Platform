@@ -1,7 +1,18 @@
 import axios from 'axios';
 
+const getBaseUrl = (): string => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (envUrl) {
+    return envUrl.endsWith('/api') ? envUrl : `${envUrl.replace(/\/$/, '')}/api`;
+  }
+  if (import.meta.env.DEV) {
+    return '/api';
+  }
+  return 'https://store-rating-platform-roxiler-assignment.onrender.com/api';
+};
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: getBaseUrl(),
   headers: {
     'Content-Type': 'application/json',
   },

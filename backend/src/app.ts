@@ -14,6 +14,15 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Root Welcome Route
+app.get('/', (req, res) => {
+  res.status(200).json({
+    status: 'OK',
+    message: '🚀 Store Rating Platform Backend API is running.',
+    healthCheck: '/api/health'
+  });
+});
+
 // Health Check
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'OK', message: 'Store Rating Platform API is operational.' });
