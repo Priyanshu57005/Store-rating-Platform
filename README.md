@@ -1,6 +1,6 @@
 # RatingHub - Store Rating Platform
 
-A full-stack web application built as part of the Roxiler Systems Full Stack Coding Challenge.
+A full-stack web application built in Full Stack.
 
 The platform allows users to rate stores, store owners to view ratings for their stores, and administrators to manage users, stores, and platform statistics.
 
